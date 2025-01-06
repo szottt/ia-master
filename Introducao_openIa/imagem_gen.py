@@ -1,5 +1,5 @@
 from openai import OpenAI
-from api import api_key
+from Configs.api import api_key
 
 client = OpenAI(
     api_key=f"{api_key}"
