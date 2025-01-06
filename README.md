@@ -120,3 +120,5 @@ for chunk in stream:
         print(chunk.choices[0].delta.content, end='')
 
 ```
+
+## Inclusao do Modulo 2
