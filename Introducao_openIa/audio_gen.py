@@ -1,5 +1,7 @@
 from openai import OpenAI
-from api import *
+#from api import *
+from Configs.api import api_key
+from Configs.path import caminho_audio
 import os
 
 client = OpenAI(
