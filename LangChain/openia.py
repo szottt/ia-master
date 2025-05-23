@@ -1,8 +1,9 @@
 from langchain_openai import OpenAI
-from Configs.api import api_key
+from dotenv import load_dotenv
 import os
 
-os.environ['OPENAI_API_KEY'] = f'{api_key}'
+load_dotenv()
+os.getenv('OPENAI_API_KEY')
 
 model = OpenAI()
 

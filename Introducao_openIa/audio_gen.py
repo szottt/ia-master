@@ -1,12 +1,14 @@
 from openai import OpenAI
 #from api import *
-from Configs.api import api_key
 from Configs.path import caminho_audio
+from dotenv import load_dotenv
 import os
 
-client = OpenAI(
-    api_key=f"{api_key}"
-)
+load_dotenv()
+api_key = os.getenv('OPENAI_API_KEY')
+
+
+client = OpenAI(api_key=api_key)
 
 response = client.audio.speech.create(
     model='tts-1',
