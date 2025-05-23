@@ -1,5 +1,5 @@
 # File: .github/workflows/pipeline.yaml
-name: 'Feature to Develop'
+name: 'Feature to development'
 
 on:
   push:
@@ -34,7 +34,6 @@ jobs:
   create-pull-request:
     runs-on: ubuntu-latest
     needs: test # Este job só roda se o job 'test' passar
-    environment: Homolog # Associa este job ao ambiente Homolog
     # Adiciona permissões explicitas para este job
     permissions:
       contents: write
@@ -49,12 +48,12 @@ jobs:
       # O passo de diagnóstico pode ser útil, vamos mantê-lo por enquanto
       - name: Check differences before PR action
         run: |
-          git fetch origin develop
+          git fetch origin development
           git fetch origin ${{ github.ref_name }}
-          echo "Commits in ${{ github.ref_name }} not in develop:"
-          git log origin/develop..origin/${{ github.ref_name }} --oneline
-          echo "Count of commits in ${{ github.ref_name }} not in develop:"
-          git rev-list --right-only --count origin/develop...origin/${{ github.ref_name }}
+          echo "Commits in ${{ github.ref_name }} not in development:"
+          git log origin/development..origin/${{ github.ref_name }} --oneline
+          echo "Count of commits in ${{ github.ref_name }} not in development:"
+          git rev-list --right-only --count origin/development...origin/${{ github.ref_name }}
 
       # Passo para criar o Pull Request usando GitHub CLI (sem || true)
       - name: Create Pull Request using GitHub CLI
@@ -62,8 +61,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh pr create \
-            --base develop \
+            --base development \
             --head ${{ github.ref_name }} \
             --title "feat: PR from ${{ github.ref_name }}" \
-            --body "Este Pull Request foi criado automaticamente pelo GitHub Actions.\n\nMerge da branch `${{ github.ref_name }}` para `develop`."
+            --body "Este Pull Request foi criado automaticamente pelo GitHub Actions.\n\nMerge da branch `${{ github.ref_name }}` para `development`."
 
