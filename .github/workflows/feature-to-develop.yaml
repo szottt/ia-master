@@ -34,6 +34,7 @@ jobs:
   create-pull-request:
     runs-on: ubuntu-latest
     needs: test # Este job só roda se o job 'test' passar
+    environment: Homolog # Associa este job ao ambiente Homolog
     # Adiciona permissões explicitas para este job
     permissions:
       contents: write
