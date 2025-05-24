@@ -1,11 +1,13 @@
 from openai import OpenAI
-from Configs.api import api_key
 from Configs.path import caminho_audio
+from dotenv import load_dotenv
 import os
 
-client = OpenAI(
-    api_key=f"{api_key}"
-)
+load_dotenv()
+api_key = os.getenv('OPENAI_API_KEY')
+
+
+client = OpenAI(api_key=api_key)
 
 audio_file = open(f'{caminho_audio}/meu_audio_nova2.mp3', 'rb')
 

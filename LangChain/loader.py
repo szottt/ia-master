@@ -5,14 +5,15 @@ import os
 #sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from langchain_openai import OpenAI, ChatOpenAI
-from Configs.api import api_key  # Import directly from api.py
 from Configs.path import path_files  # Import directly from path.py
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.document_loaders import TextLoader, PyPDFLoader, CSVLoader
+from dotenv import load_dotenv
+import os
 
-
-os.environ['OPENAI_API_KEY'] = f'{api_key}'
+load_dotenv()
+os.getenv('OPENAI_API_KEY')
 
 model = ChatOpenAI(
     model='gpt-3.5-turbo',
