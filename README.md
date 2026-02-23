@@ -1,124 +1,171 @@
-# Curso de IA com Python
+# 🤖 IA Master --- Curso de Inteligência Artificial com Python
 
-Este projeto é um curso de Inteligência Artificial (IA) utilizando Python. O primeiro módulo, chamado "Introducao_openIa", contém cinco scripts que demonstram diferentes funcionalidades da API OpenAI.
+Projeto desenvolvido durante estudos e experimentações práticas em
+**Inteligência Artificial com Python**, explorando conceitos
+fundamentais de LLMs, OpenAI API, LangChain e construção de agentes
+inteligentes.
 
-## Estrutura do Projeto
+O objetivo deste repositório é servir como **base de aprendizado e
+laboratório prático**, reunindo exemplos reais de integração com IA
+moderna.
 
-ia-master/ │ ├── Introducao_openIa/ │ ├── audio_gen.py │ ├── audio_to_text.py │ ├── imagem_gen.py │ ├── modelo-system.py │ └── resposta-stream.py └── api.py
+------------------------------------------------------------------------
 
-## Scripts
+## 📚 Sobre o Projeto
 
-### 1. `audio_gen.py`
+Este repositório contém implementações e experimentos relacionados a:
 
-Este script gera um arquivo de áudio a partir de um texto utilizando a API de síntese de voz da OpenAI.
+-   Integração com OpenAI API
+-   Construção de agentes de IA
+-   Uso do LangChain
+-   Manipulação de bases de conhecimento
+-   Configuração de ambientes para aplicações de IA
+-   Estudos práticos de engenharia de prompts
 
-```python
-from openai import OpenAI
-from api import *
-import os
+O projeto foi organizado de forma modular para facilitar evolução e
+novos experimentos.
 
-client = OpenAI(api_key=f"{api_key}")
-response = client.audio.speech.create(
-    model='tts-1',
-    voice='nova',
-    input='Estou fazendo meu primeiro curso de inteligencia artificial',
-)
+------------------------------------------------------------------------
 
-# Define the directory and file path
-directory = f'{caminho_audio}'
-file_path = os.path.join(directory, 'meu_audio_nova2.mp3')
+## 🏗️ Estrutura do Projeto
 
-# Now you can safely write the file
-response.write_to_file(file_path)
+    ia-master/
+    │
+    ├── .github/workflows     # Pipelines e automações
+    ├── Configs               # Configurações do projeto
+    ├── Files                 # Bases de conhecimento (RAW data)
+    ├── Introducao_openai     # Exemplos iniciais com OpenAI
+    ├── LangChain             # Experimentos utilizando LangChain
+    ├── requirements.txt      # Dependências Python
+    └── README.md
+
+------------------------------------------------------------------------
+
+## ⚙️ Tecnologias Utilizadas
+
+-   🐍 Python
+-   🤖 OpenAI API
+-   🔗 LangChain
+-   📦 Virtual Environment (venv)
+-   ⚙️ GitHub Actions
+
+------------------------------------------------------------------------
+
+## 🚀 Como Executar o Projeto
+
+### 1️⃣ Clonar o repositório
+
+``` bash
+git clone https://github.com/szottt/ia-master.git
+cd ia-master
 ```
 
-### 2. `audio_to_text.py`
+------------------------------------------------------------------------
 
-Este script converte um arquivo de áudio em texto utilizando a API de transcrição da OpenAI.
+### 2️⃣ Criar ambiente virtual
 
-```python
-from openai import OpenAI
-from api import *
-import os
+Linux / Mac:
 
-client = OpenAI(api_key=f"{api_key}")
-audio_file = open(f'{caminho_audio}/meu_audio_nova2.mp3', 'rb')
-texto = client.audio.transcriptions.create(
-    model='whisper-1',
-    file=audio_file
-)
-print(texto.text)
-
+``` bash
+python3 -m venv venv
+source venv/bin/activate
 ```
 
+Windows:
 
-
-### 3. `imagem_gen.py`
-
-Este script gera uma imagem a partir de um prompt utilizando a API DALL-E da OpenAI.
-```python
-from openai import OpenAI
-from api import api_key
-
-client = OpenAI(api_key=f"{api_key}")
-response = client.images.generate(
-    model='dall-e-3',
-    prompt="Faça uma imagem de um streamer porem que fica no lugar dele é a sua cadeira",
-    size="1024x1024",
-    quality="standard",
-    n=1,
-)
-image_url = response.data[0].url
-print(image_url)
-
+``` bash
+python -m venv venv
+venv\Scripts\activate
 ```
 
-### 4. `modelo_system.py`
+------------------------------------------------------------------------
 
-Este script utiliza a API GPT para traduzir textos do português para o inglês.
-```python
-from openai import OpenAI
-from api import api_key
+### 3️⃣ Instalar dependências
 
-client = OpenAI(api_key=f"{api_key}")
-response = client.chat.completions.create(
-    model='gpt-3.5-turbo',
-    messages=[
-        {
-            'role': 'system',
-            'content': 'Voce sera um tradutor de textos de portugues para ingles.'
-        },
-        {
-            'role': 'user',
-            'content': 'O Livro esta na mesa.'
-        }   
-    ],
-)
-print(response.choices[0].message.content)
-
+``` bash
+pip install -r requirements.txt
 ```
 
-### 5. `resposta_stream.py`
+------------------------------------------------------------------------
 
-Este script utiliza a API GPT para gerar respostas em tempo real a partir de um prompt.
+### 4️⃣ Configurar variáveis de ambiente
 
-```python
-from openai import OpenAI
-from api import api_key
+Crie um arquivo `.env` ou configure:
 
-client = OpenAI(api_key=f"{api_key}")
-stream = client.chat.completions.create(
-    model='gpt-3.5-turbo',
-    messages=[
-        {'role':'user', 'content': 'Me fale sobre o Fiat Elba 1988'}   
-    ],
-    stream=True,
-)
-
-for chunk in stream:
-    if chunk.choices[0].delta.content is not None:
-        print(chunk.choices[0].delta.content, end='')
-
+``` env
+OPENAI_API_KEY=your_api_key_here
 ```
 
-## Inclusao do Modulo 2
+------------------------------------------------------------------------
+
+### 5️⃣ Executar exemplos
+
+Navegue até o módulo desejado:
+
+``` bash
+cd Introducao_openai
+python main.py
+```
+
+ou
+
+``` bash
+cd LangChain
+python app.py
+```
+
+*(os arquivos podem variar conforme o módulo)*
+
+------------------------------------------------------------------------
+
+## 🧠 Conceitos Explorados
+
+-   Large Language Models (LLMs)
+-   Prompt Engineering
+-   Retrieval Augmented Generation (RAG)
+-   Agentes de IA
+-   Cadeias de raciocínio (Chains)
+-   Integração com bases de conhecimento
+
+------------------------------------------------------------------------
+
+## 📈 Objetivo Educacional
+
+Este repositório foi criado como parte do processo de aprendizado
+contínuo em IA aplicada, com foco em:
+
+-   Aprender construindo projetos reais
+-   Entender arquiteturas modernas de IA
+-   Experimentar frameworks emergentes
+-   Criar base sólida para aplicações AI-first
+
+------------------------------------------------------------------------
+
+## 🤝 Contribuições
+
+Sugestões e melhorias são bem-vindas!
+
+1.  Fork o projeto
+2.  Crie uma branch (`feature/minha-feature`)
+3.  Commit suas mudanças
+4.  Abra um Pull Request
+
+------------------------------------------------------------------------
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais
+detalhes.
+
+------------------------------------------------------------------------
+
+## 👨‍💻 Autor
+
+**Igor Szot**
+
+-   GitHub: https://github.com/szottt
+
+------------------------------------------------------------------------
+
+⭐ Se este repositório te ajudou nos estudos, considere deixar uma
+estrela!
