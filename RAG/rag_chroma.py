@@ -1,5 +1,8 @@
 import os
 from dotenv import load_dotenv
+from langchain import hub
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_chroma import Chroma
@@ -27,8 +30,22 @@ vector_store = Chroma.from_documents(documents=chunks,
                                      )
 retriver = vector_store.as_retriever()
 
-result = retriver.invoke(
-    'Qual a bateria do notebook?'
+prompt = hub.pull('rlm/rag-prompt')
+
+rag_chain = (
+    {
+    'context': retriver,
+    'question': RunnablePassthrough()
+    }
+    | prompt
+    | model
+    | StrOutputParser()
 )
 
-print(result)
+try:
+    while True:
+        question = input('Qual a sua duvida: ')
+        response = rag_chain.invoke(question)
+        print(response)
+except KeyboardInterrupt:
+    exit()
