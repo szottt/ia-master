@@ -39,7 +39,7 @@ model = ChatOpenAI(
     model=selected_model
 )
 
-db = SQLDatabase.from_uri("sqlite:///estoque.db")
+db = SQLDatabase.from_uri("sqlite:///estoque_agent/estoque.db")
 toolkit = SQLDatabaseToolkit(
     db=db,
     llm=model
